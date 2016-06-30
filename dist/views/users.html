@@ -1,0 +1,65 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>index</title>
+</head>
+<body>
+  <button id='list'>list</button>
+  <button id='add'>add</button>
+  <button id='del'>delete</button>
+  <button id='upt'>update</button>
+
+</body>
+<script>
+  window.onload = function(){
+    var list = document.getElementById('list');
+    list.addEventListener('click',function(event){
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET','/users/list',true);
+      xhr.send();
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status==200){
+          alert(xhr.responseText)
+        }
+      }
+    })
+
+    var add = document.getElementById('add');
+    add.addEventListener('click',function(event){
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET','/users/add',true);
+      xhr.send();
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status==200){
+          alert(xhr.responseText)
+        }
+      }
+    })
+
+    var del = document.getElementById('del');
+    del.addEventListener('click',function(event){
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET','/users/delete',true);
+      xhr.send();
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status==200){
+          alert(xhr.responseText)
+        }
+      }
+    })
+
+    var upt = document.getElementById('upt');
+    upt.addEventListener('click',function(event){
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET','/users/update',true);
+      xhr.send();
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status==200){
+          alert(xhr.responseText)
+        }
+      }
+    })
+
+  }
+</script>
+</html>
