@@ -4,12 +4,12 @@
   <title>index</title>
 </head>
 <body>
+  <button id='show'>show</button>
   <ul>
-    <li>item</li>
-    <li>item</li>
-    <li>item</li>
-    <li>item</li>
-    <li>item</li>
+    <% for(var i=0;i<users.length;i++){ %>
+    <li><%= users[i].name %></li>
+    <% } %>
   </ul>
+  <script src="/javascripts/index.js"></script>
 </body>
 </html>

@@ -1,14 +1,28 @@
 <html>
+
 <head>
   <meta charset="UTF-8">
   <title>index</title>
 </head>
-<body>
-  <button id='list'>list</button>
-  <button id='add'>add</button>
-  <button id='del'>delete</button>
-  <button id='upt'>update</button>
 
+<body>
+  <div>
+    <div>
+      <span>用户名：</span>
+      <input type="text" id='name' />
+    </div>
+    <div>
+      <span>年龄：</span>
+      <input type="text" id='age' />
+    </div>
+  </div>
+  <div>
+    <button id='list'>list</button>
+    <button id='detail'>detail</button>
+    <button id='add'>add</button>
+    <button id='del'>delete</button>
+    <button id='upt'>update</button>
+  </div>
 </body>
 <script>
   window.onload = function(){
@@ -24,11 +38,27 @@
       }
     })
 
+    var detail = document.getElementById('detail');
+    detail.addEventListener('click',function(event){
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET','/users/findOne/'+document.getElementById('name').value,true);
+      xhr.send();
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status==200){
+          alert(xhr.responseText)
+        }
+      }
+    })
+
     var add = document.getElementById('add');
     add.addEventListener('click',function(event){
+      var name = document.getElementById('name').value;
+      var age = document.getElementById('age').value;
+      var params= 'name='+name+'&age='+age;
       var xhr = new XMLHttpRequest();
-      xhr.open('GET','/users/add',true);
-      xhr.send();
+      xhr.open('POST','/users/add/',true);
+      xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+      xhr.send(params);
       xhr.onreadystatechange = function(){
         if(xhr.readyState == 4 && xhr.status==200){
           alert(xhr.responseText)
@@ -39,8 +69,9 @@
     var del = document.getElementById('del');
     del.addEventListener('click',function(event){
       var xhr = new XMLHttpRequest();
-      xhr.open('GET','/users/delete',true);
-      xhr.send();
+      xhr.open('POST','/users/delete',true);
+      xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+      xhr.send({name:document.getElementById('name').value});
       xhr.onreadystatechange = function(){
         if(xhr.readyState == 4 && xhr.status==200){
           alert(xhr.responseText)
@@ -51,8 +82,9 @@
     var upt = document.getElementById('upt');
     upt.addEventListener('click',function(event){
       var xhr = new XMLHttpRequest();
-      xhr.open('GET','/users/update',true);
-      xhr.send();
+      xhr.open('POST','/users/update',true);
+      xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+      xhr.send({name:document.getElementById('name').value,age:document.getElementById('age').value});
       xhr.onreadystatechange = function(){
         if(xhr.readyState == 4 && xhr.status==200){
           alert(xhr.responseText)
@@ -62,4 +94,5 @@
 
   }
 </script>
+
 </html>
